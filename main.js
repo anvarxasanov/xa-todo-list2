@@ -1,17 +1,4 @@
-const todoList = [
-/*     {
-        name: '',
-        dueDate: ''
-    }, */
-/*     {
-        name: 'wash dishes',
-        dueDate: '26-11-2025'
-    },
-    {
-        name: 'watch youtube',
-        dueDate: '25-11-2025'
-    } */
-];
+const todoList = [];
 
 renderTodoList();
 
@@ -19,22 +6,29 @@ function renderTodoList() {
     let todoListHTML = '';
     const container = document.querySelector('.js-container');
 
-    for (let i = 0; i < todoList.length; i += 1) {
-        const todoObject = todoList[i];
+    todoList.forEach((todoObject, index) => {
         const { name, dueDate } = todoObject;
-        // const name = todoObject.name; 
-        // const date = todoObject.dueDate;
+
         const html = `<div>${name}</div> <div>${dueDate}</div> 
-        <button class="delete-btn" onclick="
-            todoList.splice(${i}, 1);
-            renderTodoList();
-        ">Delete</button>`;
+        <button class="delete-btn js-delete-btn">Delete</button>`;
 
         todoListHTML += html;
-    }
+    });
+
     container.innerHTML = todoListHTML;
+
+    document.querySelectorAll('.js-delete-btn')
+        .forEach((deleteBtn, index) => {
+            deleteBtn.addEventListener('click', () => {
+                todoList.splice(index, 1);
+                renderTodoList();
+            })
+        })
 }
 
+document.querySelector('.js-add-btn').addEventListener('click', () => {
+    addTodo();
+});
 
 
 
